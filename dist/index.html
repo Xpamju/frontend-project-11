@@ -2,10 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" crossorigin href="/assets/index-BzD9-lks.css">
+</head>
 </head>
 <body>
-    <p>Hello</p>
+
+<div class="container-inner bg-dark p-5">
+ <div class="container">
+  <div class="row">
+    <div class="col text-white">
+      <h1>RSS агрегатор</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-white">
+      <p>Начните читать RSS сегодня! Это легко, это красиво.</p>
+    </div>
+  </div>
+     <div class="row">
+        <div class="col-8">  
+            <input id="url-input" autofocus="" type="text" required="" name="url" aria-label="url" class="form-control w-100 h-100" placeholder="ссылка RSS" autocomplete="off">
+        </div>
+        <div class="col-4">  
+              <button type="button" class="btn btn-primary btn-lg">Добавить</button>
+        </div>
+
+    <div id="emailHelp" class="form-text text-secondary">Пример: https://lorem-rss.hexlet.app/feed</div>
+  </div>
+  </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
