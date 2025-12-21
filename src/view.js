@@ -4,10 +4,10 @@ import onChange from 'on-change';
 
 
 const watchedStateFunc = () => {
-  let input = document.getElementsByClassName('.rss-form')
+  let form = document.getElementsByTagName('form')
 
 
-console.log(input.value)
+console.log(form.value)
   let state = {
   url: []
   }
@@ -15,7 +15,7 @@ console.log(input.value)
 const watchedState = onChange(state, (path, value) => {
 console.log(`${path} изменился на ${value}`);
   })
-    input.addEventListener('submit', (e) => {
+    form.addEventListener('submit', (e) => {
     watchedState.url = [...watchedState.url, e.target.value]
 
   });
