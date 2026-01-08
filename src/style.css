@@ -4,3 +4,7 @@
 .text-primary {
     color: black;
 }
+.feedback-success { color: green !important; }
+.feedback-error { color: red !important; }
+.feedback-info { color: blue; }
+.feedback-message { margin-top: 5px; }
