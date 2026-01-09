@@ -1,5 +1,23 @@
 import onChange from 'on-change';
 import * as yup from 'yup';
+import i18next from 'i18next';
+
+
+i18next.init({
+  lng: 'en',
+  debug: true,
+  resources: {
+    en: {
+      translation: {
+        success: 'RSS успешно загружен',
+        errors: {
+          unvalid: 'Ссылка должна быть валидным URL',
+          exists: 'RSS уже существует',
+        }
+      }
+    }
+  }
+});
 
 const watchedStateFunc = () => {
   const form = document.getElementById('url-form');
@@ -13,22 +31,25 @@ const watchedStateFunc = () => {
 
   const state = {
     url: [],
-    feedback: { message: '', type: 'info' }
+    feedback: { message: '', type: 'info' },
+    inputError: false
   };
 
   const watchedState = onChange(state, (path, value) => {
     console.log(`${path} изменился на ${value}`);
     if (path === 'feedback') {
       renderFeedback(value);
+    } if (path === 'inputError') {
+      renderInputError(value);
     }
   });
 
   const getUrlSchema = (existingUrls) => yup
     .string()
     .trim()
-    .required('URL обязателен')
-    .url('Ссылка должна быть валидным URL')
-    .test('unique-url', 'RSS уже существует', (value) => !existingUrls.includes(value));
+    .required()
+    .url(i18next.t('errors.unvalid'))
+    .test('unique-url', i18next.t('errors.exists'), (value) => !existingUrls.includes(value));
 
   const renderFeedback = (feedbackData) => {
     // удаляем старый feedback, если есть
@@ -46,10 +67,19 @@ const watchedStateFunc = () => {
     example.insertAdjacentElement('afterend', message);
   };
 
+  const renderInputError = (hasError) => {
+    if (hasError) {
+      input.classList.add('is-invalid');
+    } else {
+      input.classList.remove('is-invalid')
+    }
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     watchedState.feedback = { message: 'Проверка RSS...', type: 'info' };
+    watchedState.inputError = false;
 
     const urlValue = input.value;
     const schema = getUrlSchema(watchedState.url);
@@ -60,9 +90,11 @@ const watchedStateFunc = () => {
       input.value = '';
       input.focus();
       
-      watchedState.feedback = { message: 'RSS успешно добавлен', type: 'success' };
+      watchedState.feedback = { message: i18next.t('success'), type: 'success' };
+      watchedState.inputError = false;
     } catch (err) {
       watchedState.feedback = { message: err.message, type: 'error' };
+      watchedState.inputError = true;
     }
   });
 
